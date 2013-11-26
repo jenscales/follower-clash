@@ -17,12 +17,13 @@ module UserComparer
     			config.access_token_secret = ENV['OAUTH_TOKEN_SECRET']
     		end
 
-    		client.user(@username)followers_count
+    		client.user(@username).followers_count
 		end
 
 	end
 
 	class Comparer
+		attr_reader :user1, :user2
 
 		def initialize(user1, user2)
 			@user1 = user1
@@ -30,7 +31,13 @@ module UserComparer
 		end
 
 		def compare
-
+			if @user1.followers > @user2.followers
+				@user1.username
+			elsif @user1.followers == @user2.followers 
+				@user1.username @user2.username	
+			else 
+				@user2.username
+			end
 		end
 	end
 end
